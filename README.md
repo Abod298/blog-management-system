@@ -129,7 +129,7 @@ Bu komutun arka planda çalışmasını sağlamak veya Supervisor gibi bir işle
 7 gün boyunca yorum almayan yazıların otomatik olarak silinmesi için Laravel'in görev planlayıcısını kullanabilirsiniz. Bunu yapmak için aşağıdaki komutu kullanarak görev planlamayı başlatın:
 
 ```bash
-php artisan schedule:run
+php artisan schedule:work
 ```
 
 Bu komutun her dakika çalışması gerektiğinden, görev planlamasını bir cron job olarak ayarlamak gerekir.
