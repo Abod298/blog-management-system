@@ -114,8 +114,9 @@ import { useAuthStore } from '@/stores/authStore'
 import { usePermissionsStore } from '@/stores/permissionsStore'
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar'
 import { ref, onMounted, onBeforeUnmount,computed } from 'vue'
+import { useRouter } from 'vue-router'
 
-
+const router = useRouter()
 const permissionsStore = usePermissionsStore()
 const authStore = useAuthStore()
 const isAuthenticated = computed(() => authStore.isAuthenticated)
@@ -149,6 +150,7 @@ const toggleUserMenu = () => {
 
 const handleLogout = () => {
   authStore.logout()
+  router.push({name : 'home'})
   isUserMenuOpen.value = false
 }
 

@@ -2,7 +2,8 @@ import './style.css'
 
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
-import { mask } from 'vue-the-mask'
+import VueTheMask from 'vue-the-mask'
+
 import './plugins/echo';
 import App from './App.vue'
 import router from './router'
@@ -18,5 +19,6 @@ await authStore.fetchUser().catch(() => {})
 if (authStore.isAuthenticated) {
   await permissionsStore.fetchPermissions()
 }
+app.use(VueTheMask)
 app.use(router)
 app.mount('#app')

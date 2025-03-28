@@ -23,7 +23,6 @@ class PostController extends Controller
     public function index(): JsonResponse
     {
         abort_if(Gate::denies('access-posts'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-
         $posts = $this->postRepository->getLatestPosts();
         return response()->json(
             PostResource::collection($posts)

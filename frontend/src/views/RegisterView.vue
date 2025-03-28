@@ -2,7 +2,7 @@
 import { shallowRef, ref } from "vue";
 import { defineForm, field, isValidForm, toObject } from "vue-yup-form";
 import * as yup from "yup";
-import { vMask } from "vue-the-mask";
+import { TheMask } from "vue-the-mask";
 import {useAuthStore} from '@/stores/authStore'
 import { formToJSON } from "axios";
 
@@ -21,11 +21,7 @@ const generateForm = () => {
     last_name: field("", yup.string().label("Last Name").required()),
     phone: field(
       "",
-      yup
-        .string()
-        .label("Phone")
-        .matches(/^\+?[\d\s-]{10,}$/, "Invalid phone number")
-        .required()
+      yup.string().label('Telefon').min(15).required()
     ),
     email: field(
       "",
@@ -121,11 +117,11 @@ const onReset = () => {
           id="phone"
           name="phone"
           type="tel"
-          v-mask="'(###) ###-####'"
+          v-mask="'(###) ### ##-##'"
           class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
           :class="{ 'border-red-500': submitted && form.phone.$error }"
           v-model.trim="form.phone.$value"
-          placeholder="(555) 456-7890"
+          placeholder="(555) 456 78-90"
         />
         <span
           v-if="submitted && form.phone.$error"

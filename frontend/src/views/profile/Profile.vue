@@ -4,7 +4,7 @@ import { useRouter } from 'vue-router'
 import axios from 'axios'
 import { defineForm, field, isValidForm, toObject } from 'vue-yup-form'
 import * as yup from 'yup'
-import { vMask } from 'vue-the-mask'
+import { TheMask } from 'vue-the-mask'
 import { useAuthStore } from '@/stores/authStore'
 
 const router = useRouter()
@@ -18,7 +18,7 @@ const form = defineForm({
   name: field('', yup.string().label('ADI').required()),
   last_name: field('', yup.string().label('SYADI').required()),
   email: field('', yup.string().email('Hatali Eposta').label('Email').required()),
-  phone: field('', yup.string().matches(/^\+?[\d\s-]{10,}$/, "Hatali Telefon Numarasi")),
+  phone: field('', yup.string().label('Telefon').min(15).required()),
 })
 
 // Fetch user data
@@ -76,7 +76,7 @@ const updateProfile = async () => {
     if (fileInput.value?.files?.[0]) {
       formData.append('avatar', fileInput.value.files[0])
     }
-    
+
     const response = await axios.post(`/user/profile-information`, formData ,{
         headers: {
             'Content-Type': 'multipart/form-data'
@@ -126,8 +126,8 @@ onMounted(() => {
 
       <div class="flex flex-col items-center space-y-4">
         <div class="relative">
-          <img 
-            :src="avatarPreview || 'https://placehold.co/150'" 
+          <img
+            :src="avatarPreview || 'https://placehold.co/150'"
             class="w-32 h-32 rounded-full object-cover border-2 border-gray-200"
             alt="Profil Avatarı"
           >
@@ -141,8 +141,8 @@ onMounted(() => {
             </svg>
           </button>
         </div>
-        <input 
-          type="file" 
+        <input
+          type="file"
           ref="fileInput"
           @change="handleAvatarChange"
           accept="image/*"
@@ -208,7 +208,7 @@ onMounted(() => {
         <input
           id="phone"
           v-model="form.phone.$value"
-          v-mask="'(###) ###-####'"
+          v-mask="'(###) ### ##-##'"
           type="tel"
           class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
           :class="{ 'border-red-500': submitted && form.phone.$error }"
